@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/style.css">
+        <script src="static/script.js"></script>
+    </head>
+<body>
+
+<div id="main">
+    <h1>Find interesting places in Your neighbourhood!</h1><br><br><br>
+    <div>
+        <label for="customRange2" class="form-label">Select radius:</label><br><br>
+        <input type="range" class="form-range" min="0" max="1000" id="customRange2" value="10" onchange="updateTextInput(this.value);"><br><br>
+        <input type="text" id="textInput" value="10" disabled> KM<br><br>
+        <button type="button" class="btn btn-dark" onclick="buttonOnClick();">Search</button><br><br><br><br>
+    </div>
+    <div id="content"></div>
+</div>
+
+</body>
+</html>
