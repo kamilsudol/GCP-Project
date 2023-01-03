@@ -6,7 +6,10 @@ from flask_restful import Resource, Api, reqparse
 import google.cloud.logging
 import logging
 from subprocess import run
+import os
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 
@@ -20,11 +23,10 @@ class HomePage(Resource):
 
 
 class DataBase(Resource):
-    def get(self, distance: int):
+    def get(self, distance: int, user_latitude, user_longitude):
         try:
-            required_data = requests.get("https://sabre-gcp-projekt.ew.r.appspot.com/user_ip").json()["localisation"]
-            logging.info("Running on {} {} coordinates, distance: {}".format(required_data["latitude"], required_data["longitude"], distance*1000))
-            result = find_places_in_specific_distance(required_data["latitude"], required_data["longitude"], distance*1000)
+            logging.info(f"Running on {user_latitude} {user_longitude} coordinates, distance: {distance*1000}")
+            result = find_places_in_specific_distance(user_latitude, user_longitude, distance*1000)
         except Exception as e:
             logging.info("Database - FAIL")
             logging.error(e)
@@ -62,11 +64,12 @@ class UserIP(Resource):
         "localisation": self.get_location(user_ip)}, 200
 
 api.add_resource(UserIP, '/user_ip')
-api.add_resource(DataBase, '/get_places/<int:distance>')
+api.add_resource(DataBase, '/get_places/<int:distance>/<string:user_latitude>/<string:user_longitude>')
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
    return render_template('home.html')
 
+port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=port)

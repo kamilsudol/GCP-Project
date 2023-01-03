@@ -1,8 +1,0 @@
-flask
-flask-restful
-requests
-maxminddb
-psycopg2-binary
-SQLAlchemy
-cloud-sql-python-connector
-pg8000

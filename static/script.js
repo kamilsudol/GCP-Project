@@ -1,3 +1,5 @@
+const HOME = window.location.href;
+
 function updateTextInput(val) {
     document.getElementById('textInput').value=val; 
 }
@@ -25,10 +27,10 @@ function resolveDistance(userLocation, placeData){
 
 function buttonOnClick(){
     var val = document.getElementById('customRange2').value;
-    fetch('https://sabre-gcp-projekt.ew.r.appspot.com/user_ip')
+    fetch(HOME + '/user_ip')
         .then((response) => response.json())
         .then((user_data) => {
-            fetch('https://sabre-gcp-projekt.ew.r.appspot.com/get_places/' + val)
+            fetch(HOME + 'get_places/' + val + "/" + user_data.localisation.latitude + "/" + user_data.localisation.longitude)
                 .then((response) => response.json())
                 .then((data) => {
                     if ("db_response" in data){
