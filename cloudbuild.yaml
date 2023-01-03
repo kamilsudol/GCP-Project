@@ -13,3 +13,5 @@ steps:
       - '--allow-unauthenticated'
       - '--service-account=${_SERVICE_ACCOUNT_EMAIL}'
       - '--image=gcr.io/$PROJECT_ID/project-container:$SHORT_SHA'
+options:
+  logging: CLOUD_LOGGING_ONLY
